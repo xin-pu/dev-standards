@@ -19,6 +19,8 @@ precedence over these standards.
   treating it as a reusable rule, then make and document a final decision.
 - For a new solution, project README, project design, local decision record,
   or standards deviation, read [the project-adoption Skill](project-adoption/SKILL.md).
+- For GitHub Issue triage, work branches, pull requests, review, merge, or
+  issue closure, read [the GitHub workflow Skill](github-workflow/SKILL.md).
 
 Rules are labeled **Required**, **Preferred**, or **Observed**. Apply Required
 rules unless the user explicitly overrides them; explain a Preferred-rule

@@ -1,0 +1,35 @@
+name: Bug report
+description: Record a reproducible defect and its acceptance criteria.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: "Describe the observed behavior without secrets or customer data."
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What happened, where, and who is affected?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction and evidence
+      description: Minimal steps, logs with sensitive values removed, and expected behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria and verification
+      description: Observable outcome and tests or checks that must pass.
+    validations:
+      required: true
+  - type: textarea
+    id: risk
+    attributes:
+      label: Risk and rollback
+      description: Compatibility, data, configuration, security, or rollback concerns.
+    validations:
+      required: true

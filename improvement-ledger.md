@@ -197,6 +197,21 @@ entries; supersede them with a new entry when materially new evidence appears.
 - **Implementation link:** [project-adoption Skill](project-adoption/SKILL.md) and [project templates](project-adoption/templates/).
 - **Review again:** not needed.
 
+### DS-2026-016 — Standardize the GitHub Issue-to-PR delivery lifecycle
+
+- **Status:** Implemented
+- **Proposed on:** 2026-09-13
+- **Scope:** cross-technology
+- **Proposal:** Require material work to flow through a GitHub Issue, an issue-named branch, verified pull request, protected merge, and linked Issue closure; promote reusable lessons to the shared ledger.
+- **Evidence:** Future projects will be developed on GitHub and need one auditable lifecycle from problem intake through merged outcome.
+- **Expected benefit:** Work, verification, review, merge, and Issue closure remain linked and searchable across projects.
+- **Costs and risks:** GitHub settings and permissions vary by repository; branch protection and automatic Issue closure must be configured during project adoption.
+- **Affected standards:** [GitHub workflow Skill](github-workflow/SKILL.md), [Issue lifecycle](github-workflow/issue-lifecycle.md), and [PR policy](github-workflow/pull-request-policy.md).
+- **Decision:** Accepted and implemented.
+- **Decision rationale:** GitHub provides native Issue, branch, PR, review, status-check, and closing-keyword capabilities. The workflow adds consistent evidence and standards-promotion boundaries without duplicating project-specific process.
+- **Implementation link:** [GitHub workflow templates](github-workflow/templates/) and [project adoption routing](project-adoption/SKILL.md).
+- **Review again:** not needed.
+
 ### DS-2026-009 — Standardize the MVVM folder layout for WPF projects
 
 - **Status:** Deferred
