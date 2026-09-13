@@ -79,7 +79,7 @@ entries; supersede them with a new entry when materially new evidence appears.
 
 ### DS-2026-003 — Make namespace-equals-project-plus-folder the preferred layout with an IDE0130 gate
 
-- **Status:** Accepted
+- **Status:** Implemented
 - **Proposed on:** 2026-09-13
 - **Scope:** .NET
 - **Proposal:** Prefer namespaces that mirror the project name plus the file's subfolder path, enforced by `dotnet_diagnostic.IDE0130.severity = warning`; document the migration mechanics: script namespace rewrites from folder paths, repair using directives from compiler CS0246 output, exempt `Properties/AssemblyInfo.cs`.
@@ -87,9 +87,9 @@ entries; supersede them with a new entry when materially new evidence appears.
 - **Expected benefit:** One widely understood convention instead of per-project choice; the scripted migration is reusable.
 - **Costs and risks:** Big one-time diff; public-API consumers see new namespaces (acceptable pre-distribution); same-project sibling types start needing using directives they did not need before.
 - **Affected standards:** [dotnet/coding-style.md](dotnet/coding-style.md).
-- **Decision:** Accepted as a Preferred layout convention, not a mandatory migration or unconditional build gate.
-- **Decision rationale:** Folder-aligned namespaces aid navigation in SDK-style projects, but public APIs, generated code, and legacy assembly metadata require scoped exceptions. A warning becomes a gate only where the project explicitly treats it as one.
-- **Implementation link:** Pending `dotnet/coding-style.md` update.
+- **Decision:** Accepted and implemented as a Required rule for new or moved non-generated C# files.
+- **Decision rationale:** Pulse's written standard provides a precise project-root-plus-folder model. Existing source that omits intermediate folders is a migration backlog, and public contract migrations remain deliberate compatibility work.
+- **Implementation link:** [namespace policy](dotnet/coding-style.md), [build template](dotnet/templates/Directory.Build.props), and [IDE0130 template](dotnet/templates/.editorconfig).
 - **Review again:** not needed
 
 ### DS-2026-004 — Document collection-expression limits when enforcing IDE0300

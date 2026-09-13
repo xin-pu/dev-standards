@@ -6,3 +6,6 @@ insert_final_newline = true
 indent_style = space
 indent_size = 4
 dotnet_style_qualification_for_field = false:suggestion
+
+# Namespace must equal RootNamespace plus the physical project-relative path.
+dotnet_diagnostic.IDE0130.severity = error

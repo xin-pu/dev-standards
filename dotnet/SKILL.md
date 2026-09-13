@@ -20,3 +20,8 @@ Before changing a project, identify its target framework, nullable setting,
 package-management method, and applicable test tier. Preserve explicit user
 decisions when they conflict with a Preferred rule; surface a conflict with a
 Required rule before proceeding.
+
+For every new or moved non-generated C# file, calculate its namespace from the
+owning `.csproj` before writing the type: the project root namespace plus every
+relative folder segment. Do not infer a namespace from legacy files that omit
+folders.
