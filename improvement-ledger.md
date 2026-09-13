@@ -166,3 +166,33 @@ entries; supersede them with a new entry when materially new evidence appears.
 - **Decision rationale:** The validation concerns are repository invariants, and PowerShell is already the repository-owned scripting tool. A machine-specific Python path is unsuitable as a consumer prerequisite. Specialized Codex authoring tools remain optional maintainer tools.
 - **Implementation link:** [repository validator](scripts/Test-StandardsRepository.ps1), [validator test](tests/Test-StandardsRepository.Tests.ps1), and [adoption command](README.md).
 - **Review again:** not needed.
+
+### DS-2026-009 — Standardize the MVVM folder layout for WPF projects
+
+- **Status:** Proposed
+- **Proposed on:** 2026-09-13
+- **Scope:** .NET
+- **Proposal:** For WPF/MVVM projects, prefer a fixed top-level folder layout — `Views/`, `ViewModels/`, `Models/`, `Services/`, `Converters/`, `Resources/` — with only `App.xaml` at the project root, `MainWindow` under `Views/`, one `Views/<Feature>View.xaml(.cs)` paired with `ViewModels/<Feature>ViewModel.cs` per screen, reusable controls suffixed `Control`, and converters/templates never scattered outside their folders; new files must land in one of the six folders, and feature subfolders only when a folder outgrows flat browsing.
+- **Evidence:** OpenCMIS.UI.WPF converged on exactly this layout organically (12 views, 8 view models, all converters centralized); the project recorded it as its written preference alongside the namespace-mirrors-folder gate.
+- **Expected benefit:** New WPF files have an obvious home; navigation and pairing are predictable; the folder layout stops drifting per author.
+- **Costs and risks:** Layout is convention, not enforced by tooling beyond namespace checks; teams with feature-first (vertical slice) WPF layouts may disagree — the rule is Preferred, not Required.
+- **Affected standards:** [dotnet/coding-style.md](dotnet/coding-style.md).
+- **Decision:** Pending final review.
+- **Decision rationale:** Pending final review.
+- **Implementation link:** Not applicable until accepted.
+- **Review again:** not needed
+
+### DS-2026-010 — Do not nest projects in virtual solution folders when IDE0130 is enabled
+
+- **Status:** Proposed
+- **Proposed on:** 2026-09-13
+- **Scope:** .NET
+- **Proposal:** When a repository gates namespace-equals-folder (IDE0130 or equivalent), do not organize projects with Visual Studio solution folders; express architecture via project naming (and, if grouping display is required, physical directories that also participate in the namespace rule). State this where the CI-free style-gate guidance lives so the combination is chosen deliberately.
+- **Evidence:** OpenCMIS kept 7 virtual solution folders (01_Shared…06_UI, Tests) purely for solution-explorer display; after enabling IDE0130 at warning, the IDE generated namespace expectations that included the display-only layer names, which the SDK compiler never sees — resolved by removing the solution folders (17 projects unchanged, build/tests still green).
+- **Expected benefit:** One source of truth for structure; no false reminders; the sln diff stays reviewable.
+- **Costs and risks:** Solution explorer shows a flat list for large solutions; sorting by name replaces manual grouping.
+- **Affected standards:** [dotnet/toolchain-quality.md](dotnet/toolchain-quality.md).
+- **Decision:** Pending final review.
+- **Decision rationale:** Pending final review.
+- **Implementation link:** Not applicable until accepted.
+- **Review again:** not needed
