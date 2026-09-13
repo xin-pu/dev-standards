@@ -211,3 +211,33 @@ entries; supersede them with a new entry when materially new evidence appears.
 - **Decision rationale:** IDE0130 is based on project and physical file paths, not Visual Studio virtual solution folders. Removing solution folders may be a local display preference, but it is not a general namespace-correctness requirement.
 - **Implementation link:** Not applicable.
 - **Review again:** not needed
+
+### DS-2026-012 — Align IDE namespace-provider settings with the folder-aligned namespace rule
+
+- **Status:** Proposed
+- **Proposed on:** 2026-09-13
+- **Scope:** .NET
+- **Proposal:** When a repository adopts namespace-equals-folder (IDE0130 or equivalent), also clear the IDE layer's per-folder opt-outs: delete `NamespaceFoldersToSkip` entries from `[Project].csproj.DotSettings` (ReSharper's "Namespace Provider = False") and any `#pragma warning disable IDE0130`, because they keep the old expected namespace alive in the editor while the build reports the opposite. State in the repository rule that no folder may be exempted from namespace contribution without a documented exception.
+- **Evidence:** OpenCMIS switched to folder-aligned namespaces (39 files renamed, IDE0130 at warning) but six projects still carried `NamespaceFoldersToSkip` entries for `enums/`, `constants/`, `utilities/`, `implementations/`, `interfaces/`, `models/`, `eventargs/`, `attributes/`: the build gate reported zero violations while the IDE kept proposing the previous flat namespaces. The entries and their `<None Remove>` stubs were deleted, so both layers now derive the expectation from the folder tree. An earlier session misattributed the same reminders to virtual solution folders, removed all of them, and that proposal was rejected here as DS-2026-010; the reverting change records the corrected root cause.
+- **Expected benefit:** One namespace expectation instead of two contradictory ones, no hidden per-project overrides, and a known first thing to grep for (`NamespaceFoldersToSkip`) when editor and build disagree.
+- **Costs and risks:** Removes a legitimate ReSharper escape hatch, so genuine exceptions need an explicit documented form; tool settings file names and storage format may change between analyzer versions.
+- **Affected standards:** [dotnet/toolchain-quality.md](dotnet/toolchain-quality.md) (version analyzer configuration, suppression decisions, and editor settings with the repository).
+- **Decision:** Pending final review.
+- **Decision rationale:** Pending final review.
+- **Implementation link:** Not applicable until accepted.
+- **Review again:** not needed.
+
+### DS-2026-013 — Prove a build-time style gate with a deliberate violation
+
+- **Status:** Proposed
+- **Proposed on:** 2026-09-13
+- **Scope:** .NET
+- **Proposal:** Before relying on a build-time style gate (IDE0130, IDE0300, IDE1006, ...), plant one deliberate violation in a scratch file, confirm the build reports that rule, then delete the file. For IDE0130 also expose `RootNamespace` and `ProjectDir` through `CompilerVisibleProperty`, as the rule's documentation requires for command-line builds, so the gate does not depend on implicit SDK behavior. Build the solution after editing solution or project structure, not just the touched project.
+- **Evidence:** OpenCMIS documented its namespace gate as build-time enforced but had never proven it; a probe file under `Enums/` declaring the parent namespace produced `warning IDE0130: ... should be OpenCMIS.Shared.Enums` on SDK 10 both before and after the properties were added (so the properties are robustness, not a fix), while a clean solution-wide rebuild reports zero. In the same session MSBuild rejected a hand-written `NestedProjects` entry whose left-hand GUID lacked braces (`MSB5023`), which only surfaced because the whole solution was built after the edit.
+- **Expected benefit:** Distinguishes a working gate from a decorative one; the probe output also names the expected namespace, which doubles as a migration aid; structure edits are proven loadable by the build rather than by inspection.
+- **Costs and risks:** A few minutes per rule, and a leftover probe is itself a violation, so it must be deleted in the same step.
+- **Affected standards:** [dotnet/toolchain-quality.md](dotnet/toolchain-quality.md); complements DS-2026-002.
+- **Decision:** Pending final review.
+- **Decision rationale:** Pending final review.
+- **Implementation link:** Not applicable until accepted.
+- **Review again:** not needed.
