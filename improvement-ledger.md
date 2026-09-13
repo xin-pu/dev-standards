@@ -256,3 +256,18 @@ entries; supersede them with a new entry when materially new evidence appears.
 - **Decision rationale:** Pending final review.
 - **Implementation link:** Not applicable until accepted.
 - **Review again:** not needed.
+
+### DS-2026-015 — Validate adopted project documentation with a repository script
+
+- **Status:** Proposed
+- **Proposed on:** 2026-09-13
+- **Scope:** cross-technology
+- **Proposal:** Ship a PowerShell validator with the adoption templates that a project copies alongside the layout: required paths (`README.md`, `docs/standards-reference.md`, `docs/design/`, `docs/ledger/`, `docs/adr/`), the pinned knowledge-base revision and review date, ledger entry fields and statuses, deviation entry fields and resolutions, ADR status/sections, resolving local Markdown links, and that local coding-tool artifacts are not tracked.
+- **Evidence:** OpenCMIS wrote `scripts/Test-ProjectDocuments.ps1` while adopting the templates. On its first run it caught two defects that the build, test, and formatting gates cannot see: two README links still pointing at the pre-move design-document path, and the `docs/superpowers/` plans still being tracked. Both were fixed before the adoption commit. The knowledge base already validates its own repository with PowerShell (DS-2026-008) and `project-adoption/templates/` asks projects to run a mapping validator. Related portability detail: `scripts/Test-StandardsRepository.ps1` fails under Windows PowerShell 5.1 because its default parameter value calls `Split-Path -Parent $PSScriptRoot`, and 5.1 does not populate `$PSScriptRoot` during parameter binding; passing `-RepositoryRoot` explicitly works. A shipped validator should use `$PSScriptRoot` in the body only, or require PowerShell 7.
+- **Expected benefit:** Adoption compliance becomes checkable rather than aspirational: the layout, the pinned revision, and the entry fields can be verified locally, and the two failure modes found in practice (stale links, re-tracked local artifacts) fail a script instead of relying on review.
+- **Costs and risks:** The checker encodes template structure and must be updated when templates change; field checks are label-based, so labels can be present without substance and review is still required; projects with extra documentation directories need explicit exclusions.
+- **Affected standards:** [project-adoption/documentation.md](project-adoption/documentation.md), `project-adoption/templates/`.
+- **Decision:** Pending final review.
+- **Decision rationale:** Pending final review.
+- **Implementation link:** Not applicable until accepted.
+- **Review again:** when a second solution adopts the project-adoption templates.
