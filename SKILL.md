@@ -17,6 +17,8 @@ precedence over these standards.
 - For a proposal to add, remove, or materially change a standard, read
   [the improvement ledger](improvement-ledger.md). Record the proposal before
   treating it as a reusable rule, then make and document a final decision.
+- For a new solution, project README, project design, local decision record,
+  or standards deviation, read [the project-adoption Skill](project-adoption/SKILL.md).
 
 Rules are labeled **Required**, **Preferred**, or **Observed**. Apply Required
 rules unless the user explicitly overrides them; explain a Preferred-rule

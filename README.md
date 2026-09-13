@@ -15,6 +15,11 @@ The first implementation is .NET. Its policies are intentionally separated:
 - `dotnet/observability.md` — exception translation, structured logs, and redaction
 - `dotnet/runtime-configuration.md` — Options, cancellation, timeouts, retries, and ownership
 
+For solution-specific documentation and adoption templates, see
+`project-adoption/`. It keeps each project's README, design records, ADRs, and
+local deviations versioned with that project while the reusable standards stay
+here.
+
 Each rule is marked **Required**, **Preferred**, or **Observed**. Required rules
 are the reusable baseline, Preferred rules have a documented local rationale
 when bypassed, and Observed rules record Pulse evidence without becoming a

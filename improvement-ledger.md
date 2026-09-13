@@ -182,6 +182,21 @@ entries; supersede them with a new entry when materially new evidence appears.
 - **Implementation link:** [.gitignore](.gitignore), [repository operations rule](SKILL.md), and [local-artifact policy](README.md).
 - **Review again:** not needed.
 
+### DS-2026-014 — Separate project documentation from shared development standards
+
+- **Status:** Implemented
+- **Proposed on:** 2026-09-13
+- **Scope:** cross-technology
+- **Proposal:** Give every solution its own tracked README, design documents, project ledger, ADRs, and standards-deviation record while keeping reusable engineering rules exclusively in this knowledge base.
+- **Evidence:** Solution repositories need local context and decision history, but copying cross-project rules into them causes version drift and ambiguous ownership.
+- **Expected benefit:** Projects retain their own operational history while shared standards have one authoritative, reviewable location.
+- **Costs and risks:** Project templates require adoption discipline; stale standards revisions or undocumented deviations weaken the boundary.
+- **Affected standards:** [project-adoption Skill](project-adoption/SKILL.md), [documentation policy](project-adoption/documentation.md), and `project-adoption/templates/`.
+- **Decision:** Accepted and implemented.
+- **Decision rationale:** The split preserves project autonomy without fragmenting reusable policy. Recording the adopted revision and explicit deviations makes the relationship auditable.
+- **Implementation link:** [project-adoption Skill](project-adoption/SKILL.md) and [project templates](project-adoption/templates/).
+- **Review again:** not needed.
+
 ### DS-2026-009 — Standardize the MVVM folder layout for WPF projects
 
 - **Status:** Deferred
