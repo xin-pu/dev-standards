@@ -14,7 +14,14 @@ precedence over these standards.
   [the .NET standards Skill](dotnet/SKILL.md).
 - For a technology with no directory under `technology/`, report that no local
   standard exists and do not infer .NET rules for it.
+- For a proposal to add, remove, or materially change a standard, read
+  [the improvement ledger](improvement-ledger.md). Record the proposal before
+  treating it as a reusable rule, then make and document a final decision.
 
 Rules are labeled **Required**, **Preferred**, or **Observed**. Apply Required
 rules unless the user explicitly overrides them; explain a Preferred-rule
 deviation briefly; treat Observed entries as context rather than requirements.
+
+An accepted ledger item must link to its implemented rule before its status is
+changed to **Implemented**. Do not silently promote a project-specific practice
+or a one-off request into the knowledge base.

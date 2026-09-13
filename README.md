@@ -20,6 +20,14 @@ are the reusable baseline, Preferred rules have a documented local rationale
 when bypassed, and Observed rules record Pulse evidence without becoming a
 universal mandate.
 
+## Proposing an improvement
+
+Record a candidate rule in [improvement-ledger.md](improvement-ledger.md).
+Codex reviews the evidence, scope, benefit, cost, risk, and verifiability, then
+records the final decision. Only an **Accepted** entry with a linked rule change
+may become **Implemented**; a request or project-specific example alone never
+changes the knowledge base.
+
 ## Adopt the .NET templates
 
 Copy the files from `dotnet/templates/` to a solution root, then customize them
