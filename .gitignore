@@ -11,6 +11,10 @@
 *.sln.docstates
 *.env
 
+# Coding-tool planning and design artifacts are local working documents, not
+# versioned knowledge-base standards.
+/docs/superpowers/
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 

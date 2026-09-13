@@ -49,3 +49,10 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/Test-StandardsReposi
 
 The repository's routine validation uses PowerShell and the .NET toolchain;
 Python is not a prerequisite for consumers.
+
+## Local coding-tool artifacts
+
+`docs/superpowers/plans/` and `docs/superpowers/specs/` are intentionally
+ignored. They may support local tool work, but are not versioned standards or
+evidence. Durable outcomes belong in a standards document or the improvement
+ledger.

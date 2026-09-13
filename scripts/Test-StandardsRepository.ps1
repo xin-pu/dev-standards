@@ -53,7 +53,10 @@ foreach ($skill in $skills) {
 }
 
 $markdownFiles = Get-ChildItem -LiteralPath $RepositoryRoot -Recurse -File -Filter '*.md' |
-    Where-Object { $_.FullName -notmatch '[\\/]\.git[\\/]' }
+    Where-Object {
+        $_.FullName -notmatch '[\\/]\.git[\\/]' -and
+        $_.FullName -notmatch '[\\/]docs[\\/]superpowers[\\/]'
+    }
 foreach ($markdownFile in $markdownFiles) {
     Test-MarkdownLinks -Path $markdownFile.FullName
 }
@@ -63,11 +66,42 @@ if (-not (Test-Path -LiteralPath $ledger)) {
     throw "Improvement ledger is missing: $ledger"
 }
 
-$ledgerStatuses = Select-String -LiteralPath $ledger -Pattern '^\s*- \*\*Status:\*\*\s*(?<status>.+?)\s*$' |
-    ForEach-Object { $_.Matches[0].Groups['status'].Value }
-foreach ($status in $ledgerStatuses) {
+$ledgerContent = Get-Content -LiteralPath $ledger -Raw
+$entries = [regex]::Matches($ledgerContent, '(?ms)^### (?<id>DS-\d{4}-\d{3})\b.*?(?=^### |\z)')
+$entryIds = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+$requiredFields = @('Status', 'Proposed on', 'Scope', 'Proposal', 'Evidence', 'Expected benefit', 'Costs and risks', 'Affected standards', 'Decision', 'Decision rationale', 'Implementation link', 'Review again')
+
+foreach ($entry in $entries) {
+    $entryId = $entry.Groups['id'].Value
+    if (-not $entryIds.Add($entryId)) {
+        throw "Duplicate improvement-ledger entry ID: $entryId"
+    }
+
+    foreach ($field in $requiredFields) {
+        if ($entry.Value -notmatch "(?m)^- \*\*${field}:\*\*\s*.+$") {
+            throw "Improvement-ledger entry $entryId is missing required field: $field"
+        }
+    }
+
+    $statusMatch = [regex]::Match($entry.Value, '(?m)^- \*\*Status:\*\*\s*(?<status>.+?)\s*$')
+    $status = $statusMatch.Groups['status'].Value
     if ($status -notin $allowedLedgerStatuses) {
-        throw "Invalid improvement-ledger status '$status'. Allowed values: $($allowedLedgerStatuses -join ', ')"
+        throw "Invalid improvement-ledger status '$status' in $entryId. Allowed values: $($allowedLedgerStatuses -join ', ')"
+    }
+
+    if ($status -in @('Accepted', 'Rejected', 'Deferred', 'Implemented')) {
+        $decision = [regex]::Match($entry.Value, '(?m)^- \*\*Decision:\*\*\s*(?<value>.+?)\s*$').Groups['value'].Value
+        $rationale = [regex]::Match($entry.Value, '(?m)^- \*\*Decision rationale:\*\*\s*(?<value>.+?)\s*$').Groups['value'].Value
+        if ($decision -match '^Pending' -or $rationale -match '^Pending') {
+            throw "Finalized improvement-ledger entry $entryId cannot retain a pending decision or rationale."
+        }
+    }
+
+    if ($status -eq 'Implemented') {
+        $implementation = [regex]::Match($entry.Value, '(?m)^- \*\*Implementation link:\*\*\s*(?<value>.+?)\s*$').Groups['value'].Value
+        if ($implementation -match '^(Pending|Not applicable)') {
+            throw "Implemented improvement-ledger entry $entryId must link to its implementation."
+        }
     }
 }
 

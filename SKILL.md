@@ -25,3 +25,10 @@ deviation briefly; treat Observed entries as context rather than requirements.
 An accepted ledger item must link to its implemented rule before its status is
 changed to **Implemented**. Do not silently promote a project-specific practice
 or a one-off request into the knowledge base.
+
+## Repository operations
+
+Keep `docs/superpowers/plans/` and `docs/superpowers/specs/` local and
+untracked. They are coding-tool working artifacts, not knowledge-base records.
+Move only a reviewed, enduring decision into a tracked standard, decision
+record, or improvement-ledger entry.
