@@ -40,7 +40,7 @@ Create `dotnet/SKILL.md` with `name: dotnet-development-standards`; route packag
 
 - [ ] **Step 3: Validate Skill metadata**
 
-Run: `python C:/Users/Xin.Pu/.codex/skills/.system/skill-creator/scripts/quick_validate.py .`
+Run: `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/Test-StandardsRepository.ps1`
 
 Expected: valid Skill frontmatter and no scaffold placeholders.
 
@@ -130,7 +130,7 @@ Document the repository/Skill relationship, initial .NET scope, template copy pr
 
 - [ ] **Step 2: Validate final state**
 
-Run: `python C:/Users/Xin.Pu/.codex/skills/.system/skill-creator/scripts/quick_validate.py .; powershell -NoProfile -File scripts/Test-StandardsTemplates.ps1; git status --short`
+Run: `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/Test-StandardsRepository.ps1; git status --short`
 
 Expected: valid Skills, valid template XML and mappings, and only intended files before the commit.
 

@@ -151,3 +151,18 @@ entries; supersede them with a new entry when materially new evidence appears.
 - **Decision rationale:** Pending final review.
 - **Implementation link:** Not applicable until accepted.
 - **Review again:** when the OpenCMIS doc pass lands
+
+### DS-2026-008 — Make PowerShell the default knowledge-base validation toolchain
+
+- **Status:** Implemented
+- **Proposed on:** 2026-09-13
+- **Scope:** cross-technology
+- **Proposal:** Provide a repository-owned PowerShell validator for Skill metadata, local Markdown links, ledger statuses, and .NET templates; do not require Python for routine knowledge-base validation.
+- **Evidence:** Existing plan commands referenced a user-specific Python path, while the repository already uses PowerShell for template validation and its first supported ecosystem is .NET.
+- **Expected benefit:** Consumers have a stable, versioned validation command without a Python runtime or a machine-specific Codex installation path.
+- **Costs and risks:** The validator intentionally covers only repository invariants; it does not replace specialized Codex authoring tools when those are available.
+- **Affected standards:** [README.md](README.md), [SKILL.md](SKILL.md), `scripts/Test-StandardsRepository.ps1`.
+- **Decision:** Accepted and implemented.
+- **Decision rationale:** The validation concerns are repository invariants, and PowerShell is already the repository-owned scripting tool. A machine-specific Python path is unsuitable as a consumer prerequisite. Specialized Codex authoring tools remain optional maintainer tools.
+- **Implementation link:** [repository validator](scripts/Test-StandardsRepository.ps1), [validator test](tests/Test-StandardsRepository.Tests.ps1), and [adoption command](README.md).
+- **Review again:** not needed.

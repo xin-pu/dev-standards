@@ -39,3 +39,13 @@ Validate the supplied templates with:
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/Test-StandardsTemplates.ps1
 ```
+
+Validate the whole knowledge base (Skill frontmatter, local Markdown links,
+ledger statuses, and templates) with:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/Test-StandardsRepository.ps1
+```
+
+The repository's routine validation uses PowerShell and the .NET toolchain;
+Python is not a prerequisite for consumers.
