@@ -1,0 +1,20 @@
+---
+name: development-standards
+description: Apply this repository's development standards when creating, changing, reviewing, or testing code, selecting dependencies, or adopting shared project configuration. Use the technology-specific guidance for implementation; do not use for unrelated general programming questions.
+---
+
+# Development Standards
+
+Use this repository as the versioned source of truth. User instructions take
+precedence over these standards.
+
+## Routing
+
+- For .NET/C#, NuGet, MSBuild, xUnit, Shouldly, or C# code review work, read
+  [the .NET standards Skill](dotnet/SKILL.md).
+- For a technology with no directory under `technology/`, report that no local
+  standard exists and do not infer .NET rules for it.
+
+Rules are labeled **Required**, **Preferred**, or **Observed**. Apply Required
+rules unless the user explicitly overrides them; explain a Preferred-rule
+deviation briefly; treat Observed entries as context rather than requirements.
