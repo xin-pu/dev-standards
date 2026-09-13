@@ -10,6 +10,10 @@ The first implementation is .NET. Its policies are intentionally separated:
 - `dotnet/coding-style.md` — C# contracts, boundaries, and executable style
 - `dotnet/comments.md` — XML documentation and comment decisions
 - `dotnet/testing.md` — xUnit, Shouldly, and test-tier guidance
+- `dotnet/toolchain-quality.md` — SDK pinning, CI gates, analyzers, and PR evidence
+- `dotnet/security-dependency.md` — secret handling, NuGet audit, licensing, and feeds
+- `dotnet/observability.md` — exception translation, structured logs, and redaction
+- `dotnet/runtime-configuration.md` — Options, cancellation, timeouts, retries, and ownership
 
 Each rule is marked **Required**, **Preferred**, or **Observed**. Required rules
 are the reusable baseline, Preferred rules have a documented local rationale
