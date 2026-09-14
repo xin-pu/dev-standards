@@ -31,6 +31,18 @@ behavior closes an Issue referenced by `Closes`, `Fixes`, or `Resolves` after
 merge. Confirm the Issue closed and the merged commit/PR is linked before
 marking the work complete.
 
+## Branch cleanup
+
+- **Required:** After a PR is merged, delete its feature branch from both the
+  remote and local repository, then prune stale remote-tracking references.
+- **Required:** Before deleting a branch, verify that all of its commits are
+  reachable from the intended target branch. Never delete a branch with
+  unmerged commits merely because its PR is closed or a similarly named PR was
+  merged.
+- **Required:** If the forge has already deleted the remote branch, do not
+  recreate or force-delete it; prune the local remote-tracking reference and
+  delete the verified local branch instead.
+
 ## Exceptions
 
 A PR that intentionally does not complete its Issue must link it without a

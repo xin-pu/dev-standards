@@ -47,6 +47,28 @@ entries; supersede them with a new entry when materially new evidence appears.
 
 ## Entries
 
+### DS-2026-017 — Clean up merged pull-request branches safely
+
+- **Status:** Implemented
+- **Proposed on:** 2026-09-14
+- **Scope:** cross-technology
+- **Proposal:** Require deletion of local and remote feature branches after a
+  pull request is merged, with an ancestry check before deletion and pruning
+  when the forge has already removed the remote branch.
+- **Evidence:** In OpenCMIS, GitHub had automatically deleted the merged PR
+  branch while its local remote-tracking reference persisted. A separate local
+  branch contained unmerged work and had to be preserved during cleanup.
+- **Expected benefit:** Removes stale branch clutter without discarding work
+  that has not reached the target branch.
+- **Costs and risks:** Requires a short Git ancestry check and may retain a
+  closed-but-unmerged branch until its owner resolves it.
+- **Affected standards:** [github-workflow/pull-request-policy.md](github-workflow/pull-request-policy.md).
+- **Decision:** Accepted and implemented.
+- **Decision rationale:** The rule is technology-agnostic, directly verifiable
+  with Git, and distinguishes cleanup from destructive loss of unmerged work.
+- **Implementation link:** [branch cleanup policy](github-workflow/pull-request-policy.md#branch-cleanup).
+- **Review again:** not needed.
+
 ### DS-2026-001 — Record the Shouldly assertion-mapping pitfalls observed during a full xUnit migration
 
 - **Status:** Accepted
