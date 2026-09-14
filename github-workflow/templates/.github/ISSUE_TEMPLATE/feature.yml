@@ -1,0 +1,31 @@
+name: Feature request
+description: Define a reviewable feature outcome before implementation.
+labels: [feature]
+body:
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Outcome and users
+      description: What user or business outcome should change?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Concrete, testable completion conditions.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope, constraints, and risks
+      description: Systems affected, exclusions, compatibility, rollout, and rollback.
+    validations:
+      required: true
+  - type: checkboxes
+    id: standards
+    attributes:
+      label: Shared standards impact
+      options:
+        - label: This may reveal a reusable standards improvement and will be assessed at completion.

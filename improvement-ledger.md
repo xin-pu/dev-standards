@@ -47,6 +47,28 @@ entries; supersede them with a new entry when materially new evidence appears.
 
 ## Entries
 
+### DS-2026-017 — Clean up merged pull-request branches safely
+
+- **Status:** Implemented
+- **Proposed on:** 2026-09-14
+- **Scope:** cross-technology
+- **Proposal:** Require deletion of local and remote feature branches after a
+  pull request is merged, with an ancestry check before deletion and pruning
+  when the forge has already removed the remote branch.
+- **Evidence:** In OpenCMIS, GitHub had automatically deleted the merged PR
+  branch while its local remote-tracking reference persisted. A separate local
+  branch contained unmerged work and had to be preserved during cleanup.
+- **Expected benefit:** Removes stale branch clutter without discarding work
+  that has not reached the target branch.
+- **Costs and risks:** Requires a short Git ancestry check and may retain a
+  closed-but-unmerged branch until its owner resolves it.
+- **Affected standards:** [github-workflow/pull-request-policy.md](github-workflow/pull-request-policy.md).
+- **Decision:** Accepted and implemented.
+- **Decision rationale:** The rule is technology-agnostic, directly verifiable
+  with Git, and distinguishes cleanup from destructive loss of unmerged work.
+- **Implementation link:** [branch cleanup policy](github-workflow/pull-request-policy.md#branch-cleanup).
+- **Review again:** not needed.
+
 ### DS-2026-001 — Record the Shouldly assertion-mapping pitfalls observed during a full xUnit migration
 
 - **Status:** Accepted
@@ -195,6 +217,21 @@ entries; supersede them with a new entry when materially new evidence appears.
 - **Decision:** Accepted and implemented.
 - **Decision rationale:** The split preserves project autonomy without fragmenting reusable policy. Recording the adopted revision and explicit deviations makes the relationship auditable.
 - **Implementation link:** [project-adoption Skill](project-adoption/SKILL.md) and [project templates](project-adoption/templates/).
+- **Review again:** not needed.
+
+### DS-2026-016 — Standardize the GitHub Issue-to-PR delivery lifecycle
+
+- **Status:** Implemented
+- **Proposed on:** 2026-09-13
+- **Scope:** cross-technology
+- **Proposal:** Require material work to flow through a GitHub Issue, an issue-named branch, verified pull request, protected merge, and linked Issue closure; promote reusable lessons to the shared ledger.
+- **Evidence:** Future projects will be developed on GitHub and need one auditable lifecycle from problem intake through merged outcome.
+- **Expected benefit:** Work, verification, review, merge, and Issue closure remain linked and searchable across projects.
+- **Costs and risks:** GitHub settings and permissions vary by repository; branch protection and automatic Issue closure must be configured during project adoption.
+- **Affected standards:** [GitHub workflow Skill](github-workflow/SKILL.md), [Issue lifecycle](github-workflow/issue-lifecycle.md), and [PR policy](github-workflow/pull-request-policy.md).
+- **Decision:** Accepted and implemented.
+- **Decision rationale:** GitHub provides native Issue, branch, PR, review, status-check, and closing-keyword capabilities. The workflow adds consistent evidence and standards-promotion boundaries without duplicating project-specific process.
+- **Implementation link:** [GitHub workflow templates](github-workflow/templates/) and [project adoption routing](project-adoption/SKILL.md).
 - **Review again:** not needed.
 
 ### DS-2026-009 — Standardize the MVVM folder layout for WPF projects

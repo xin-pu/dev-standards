@@ -20,6 +20,10 @@ For solution-specific documentation and adoption templates, see
 local deviations versioned with that project while the reusable standards stay
 here.
 
+For GitHub-hosted development, `github-workflow/` provides an Issue-to-branch,
+pull-request, merge, and automatic Issue-closure lifecycle with copyable GitHub
+Issue and PR templates.
+
 Each rule is marked **Required**, **Preferred**, or **Observed**. Required rules
 are the reusable baseline, Preferred rules have a documented local rationale
 when bypassed, and Observed rules record Pulse evidence without becoming a

@@ -1,0 +1,25 @@
+name: Standards improvement
+description: Propose a reusable development-standard change with evidence.
+labels: [standards-improvement]
+body:
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: State the reusable rule or capability.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence and affected projects
+      description: Incidents, project examples, dependency changes, or external requirements.
+    validations:
+      required: true
+  - type: textarea
+    id: tradeoffs
+    attributes:
+      label: Benefit, costs, and risks
+      description: Applicability, adoption cost, false positives, and exceptions.
+    validations:
+      required: true

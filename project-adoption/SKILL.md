@@ -14,3 +14,6 @@ project document; link to the adopted knowledge-base revision instead.
 
 When the task concerns C#, packages, tests, or runtime behavior, also route to
 the applicable `.NET` standards through the root `development-standards` Skill.
+
+For a GitHub-hosted project, also read the GitHub workflow Skill before creating
+an Issue, branch, pull request, or merge decision.
