@@ -309,9 +309,9 @@ entries; supersede them with a new entry when materially new evidence appears.
 - **Implementation link:** Not applicable until accepted.
 - **Review again:** when a second solution adopts the project-adoption templates.
 
-### DS-2026-017 — Default to one top-level .NET type per source file
+### DS-2026-018 — Default to one top-level .NET type per source file
 
-- **Status:** Proposed
+- **Status:** Deferred
 - **Proposed on:** 2026-09-16
 - **Scope:** .NET
 - **Proposal:** New or materially touched C# source should declare one non-`partial` top-level `class`, `interface`, `record`, `struct`, or `enum` per file, and the file name should match the type name. Exempt `partial` type slices, WPF XAML code-behind, compilation-unit files (`GlobalUsings.cs`, `AssemblyInfo.cs`), generated/vendor code, and private nested types. Projects with pre-existing aggregate files may retain a reviewed baseline while a verifier prevents new violations.
@@ -319,7 +319,7 @@ entries; supersede them with a new entry when materially new evidence appears.
 - **Expected benefit:** Type discovery, code review, rename refactors, ownership, and merge conflict resolution become more predictable while migration remains incremental rather than forcing large mechanical rewrites.
 - **Costs and risks:** More files increase navigation overhead; an over-broad rule can fragment intentionally cohesive models. Baselines must remain visible and be reduced only when a related change makes the extraction worthwhile.
 - **Affected standards:** [dotnet/coding-style.md](dotnet/coding-style.md) (if accepted); project-local verifier and baseline policy.
-- **Decision:** Pending shared-standard review.
-- **Decision rationale:** One project provides concrete tooling and migration evidence, but adoption should be confirmed by another maintained .NET solution before becoming a formal default.
-- **Implementation link:** Pulse.Instruments [Issue #157](https://github.com/pulse-atlas/pulse.instruments/issues/157), `tools/Verify-SourceStructure.ps1`, `tools/source-structure-baseline.json`.
+- **Decision:** Deferred pending shared-standard review.
+- **Decision rationale:** The evidence is concrete and the incremental verifier-plus-baseline approach is reusable, but it comes from one maintained solution. A global default needs independent adoption evidence; otherwise this could encode a project-local navigation preference as a .NET-wide rule. The entry was renumbered from DS-2026-017 to avoid duplicating the existing branch-cleanup decision identifier.
+- **Implementation link:** Pulse.Instruments [Issue #157](https://github.com/pulse-atlas/pulse.instruments/issues/157), `tools/Verify-SourceStructure.ps1`, `tools/source-structure-baseline.json` (evidence only; no shared-standard implementation).
 - **Review again:** after adoption evidence from one additional maintained .NET solution, or 2026-12-16.
