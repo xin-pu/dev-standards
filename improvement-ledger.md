@@ -369,3 +369,28 @@ entries; supersede them with a new entry when materially new evidence appears.
   scaling collaboration controls to the actual number of collaborators.
 - **Implementation link:** [solo-maintainer profile](github-workflow/solo-maintainer.md).
 - **Review again:** when a repository gains a regular second contributor.
+
+### DS-2026-021 — Standardize readable conditional layout for .NET
+
+- **Status:** Implemented
+- **Proposed on:** 2026-09-17
+- **Scope:** .NET
+- **Proposal:** Require braces for every conditional branch, one statement per
+  source line, Allman placement of `else`, and an aligned continuation layout
+  for multiline Boolean conditions while preserving short conditions on one
+  line.
+- **Evidence:** Pulse.Algorithms introduced compact multi-statement and
+  conditional layouts that passed formatter verification but reduced review
+  readability. The maintained project requested a concrete, reusable layout.
+- **Expected benefit:** Conditional control flow is predictable in reviews and
+  keeps complex predicates scannable without forcing unnecessary wrapping.
+- **Costs and risks:** A strict layout can create diff noise or over-wrap short
+  expressions, so the rule preserves single-line short conditions and leaves
+  non-conditional expression wrapping to judgment.
+- **Affected standards:** [dotnet/coding-style.md](dotnet/coding-style.md).
+- **Decision:** Accepted and implemented.
+- **Decision rationale:** The rule is technology-neutral within C#, has a
+  small and visible syntax surface, and addresses a demonstrated readability
+  issue while keeping short code compact.
+- **Implementation link:** [conditional layout rule](dotnet/coding-style.md).
+- **Review again:** not needed.

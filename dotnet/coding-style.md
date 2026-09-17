@@ -8,6 +8,11 @@
   not depend on UI, infrastructure, or composition roots.
 - Store formatting and analyzer choices in versioned repository configuration,
   not only an individual IDE profile.
+- Format conditionals for readability: every `if`, `else if`, and `else` body
+  uses braces; each statement occupies its own line; and `else` begins after
+  the preceding closing brace. Keep short conditions on one line. When a
+  condition wraps, retain its first clause after `if (` and indent each
+  following Boolean clause on its own line.
 - Run the repository's documented style and build checks before completing a
   change.
 - For every non-generated `.cs` file, declare its namespace as the owning
@@ -21,6 +26,18 @@
 - Treat a namespace mismatch as a build failure by enabling
   `EnforceCodeStyleInBuild` and configuring `IDE0130` as `error`. Do not claim
   a warning-only diagnostic is an enforced gate.
+
+```csharp
+if (hasValidReferencePlane &&
+    sampleCount >= minimumSamples)
+{
+    return result;
+}
+else
+{
+    return fallback;
+}
+```
 
 ## Preferred
 
