@@ -39,6 +39,26 @@ try {
     if (-not $rejectedMissingStandardsReference) {
         throw 'Project-document validator accepted a project without standards-reference.md.'
     }
+
+    $standardsReferenceContent = $referenceContent
+    Set-Content -LiteralPath $standardsReference -Value $standardsReferenceContent -NoNewline
+    $projectLedger = Join-Path $temporaryRoot 'docs/ledger/project-improvements.md'
+    Set-Content -LiteralPath $projectLedger -Value "### PL-2026-001 - Missing status`n`n- **Recorded on:** 2026-09-17" -NoNewline
+    $rejectedMissingLedgerStatus = $false
+    try {
+        & $validator -RepositoryRoot $temporaryRoot
+    }
+    catch {
+        if ($_.Exception.Message -match 'Project ledger entry.*Status') {
+            $rejectedMissingLedgerStatus = $true
+        }
+        else {
+            throw "Project-document validator did not report the missing ledger status. Output: $($_.Exception.Message)"
+        }
+    }
+    if (-not $rejectedMissingLedgerStatus) {
+        throw 'Project-document validator accepted a project ledger entry without Status.'
+    }
 }
 finally {
     if (Test-Path -LiteralPath $temporaryRoot) {

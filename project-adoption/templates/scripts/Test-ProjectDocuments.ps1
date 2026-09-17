@@ -66,6 +66,16 @@ if (Test-Path -LiteralPath $deviationsPath) {
     }
 }
 
+Get-ChildItem -LiteralPath (Join-Path $RepositoryRoot 'docs/ledger') -Filter '*.md' -File | Where-Object { $_.Name -ne 'standards-deviations.md' } | ForEach-Object {
+    $ledger = Get-Content -LiteralPath $_.FullName -Raw
+    foreach ($entry in (Get-EntryBlocks -Content $ledger -HeadingPattern 'PL-\d{4}-\d{3}\s+')) {
+        Require-Fields -Entry $entry.Value -Fields @('Status', 'Recorded on', 'Scope', 'Observation', 'Decision or next step', 'Evidence', 'Owner', 'Review again') -Description 'Project ledger entry'
+        if (($entry.Value) -notmatch '\*\*Status:\*\*\s+(Open|Monitoring|Implemented|Deferred|Closed)') {
+            throw 'Project ledger entry has an invalid Status value.'
+        }
+    }
+}
+
 Get-ChildItem -LiteralPath (Join-Path $RepositoryRoot 'docs/adr') -Filter '*.md' -File | Where-Object { $_.Name -ne '0000-template.md' } | ForEach-Object {
     $adr = Get-Content -LiteralPath $_.FullName -Raw
     if ($adr -notmatch '(?m)^# ADR-\d+\s+') {
