@@ -6,6 +6,9 @@
   public boundaries as part of the contract.
 - Keep project dependencies directed: contracts and domain abstractions must
   not depend on UI, infrastructure, or composition roots.
+- Declare stable public diagnostic codes and method identifiers in
+  domain-scoped static identifier types. Production code and consumers must
+  reference those identifiers rather than duplicate contract strings.
 - Store formatting and analyzer choices in versioned repository configuration,
   not only an individual IDE profile.
 - Format conditionals for readability: every `if`, `else if`, and `else` body
