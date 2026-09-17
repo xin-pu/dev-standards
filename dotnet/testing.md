@@ -20,6 +20,10 @@
   hardware, process, and network dependencies behind explicit seams.
 - For a regression, add an assertion that would fail if the defect returned;
   test a public behavior rather than an implementation detail.
+- When a test asserts a stable public diagnostic code or method identifier,
+  reference the production identifier instead of repeating its string value.
+  Keep one-off sample text and values local to the test unless meaningful
+  reuse warrants a named fixture or builder.
 
 ## Observed: Pulse baseline
 

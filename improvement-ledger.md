@@ -394,3 +394,30 @@ entries; supersede them with a new entry when materially new evidence appears.
   issue while keeping short code compact.
 - **Implementation link:** [conditional layout rule](dotnet/coding-style.md).
 - **Review again:** not needed.
+
+### DS-2026-022 — Standardize stable diagnostic and method identifier constants
+
+- **Status:** Implemented
+- **Proposed on:** 2026-09-17
+- **Scope:** .NET
+- **Proposal:** Require domain-scoped static identifier types for stable public
+  diagnostic codes and method identifiers; require tests to reference these
+  identifiers rather than duplicate contract strings; retain one-off sample
+  literals in tests unless reuse justifies a named fixture or builder.
+- **Evidence:** Pulse.Algorithms duplicated diagnostic-code strings between
+  calculator implementations and tests, making a public-contract rename easy
+  to miss while encouraging unnecessary extraction of test-only data.
+- **Expected benefit:** Stable identifiers have one source of truth, contract
+  tests survive intentional renames, and test data remains readable.
+- **Costs and risks:** Too broad a constant policy could expose test-only data
+  as production API; the rule expressly restricts production constants to
+  public stable contracts.
+- **Affected standards:** [dotnet/coding-style.md](dotnet/coding-style.md) and
+  [dotnet/testing.md](dotnet/testing.md).
+- **Decision:** Accepted and implemented.
+- **Decision rationale:** Diagnostic codes and method IDs are versioned public
+  contracts in measurement libraries, while test samples are not. The split
+  aligns API stability with focused tests without adding a dependency.
+- **Implementation link:** [stable identifier rule](dotnet/coding-style.md)
+  and [identifier assertion rule](dotnet/testing.md).
+- **Review again:** not needed.
