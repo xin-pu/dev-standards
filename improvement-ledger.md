@@ -323,3 +323,18 @@ entries; supersede them with a new entry when materially new evidence appears.
 - **Decision rationale:** The evidence is concrete and the incremental verifier-plus-baseline approach is reusable, but it comes from one maintained solution. A global default needs independent adoption evidence; otherwise this could encode a project-local navigation preference as a .NET-wide rule. The entry was renumbered from DS-2026-017 to avoid duplicating the existing branch-cleanup decision identifier.
 - **Implementation link:** Pulse.Instruments [Issue #157](https://github.com/pulse-atlas/pulse.instruments/issues/157), `tools/Verify-SourceStructure.ps1`, `tools/source-structure-baseline.json` (evidence only; no shared-standard implementation).
 - **Review again:** after adoption evidence from one additional maintained .NET solution, or 2026-12-16.
+
+### DS-2026-019 — Standardize multiline XML documentation formatting
+
+- **Status:** Implemented
+- **Proposed on:** 2026-09-17
+- **Scope:** .NET
+- **Proposal:** Require XML documentation tags on dedicated lines with four-space-indented content, using the same block form for one-line and wrapped summaries; retain single-line `inheritdoc` and generated-code exemptions.
+- **Evidence:** Pulse consistently uses `summary` blocks with a dedicated opening/closing tag and four-space content indentation, but the shared comments standard previously defined content scope without formatting.
+- **Expected benefit:** Tool-generated and hand-authored XML documentation has one predictable, readable style while still allowing long descriptions to wrap.
+- **Costs and risks:** Existing XML documentation may need format-only edits; the rule intentionally does not prescribe a rigid line width.
+- **Affected standards:** [XML documentation policy](dotnet/comments.md).
+- **Decision:** Accepted and implemented.
+- **Decision rationale:** The format is already proven in Pulse, is readable for both short and long documentation, and removes ambiguity for coding tools without changing documentation semantics.
+- **Implementation link:** [XML documentation formatting rule](dotnet/comments.md).
+- **Review again:** not needed.
