@@ -14,6 +14,10 @@
   project's `RootNamespace` plus every folder segment relative to that
   project's `.csproj` directory. If `RootNamespace` is not explicitly set,
   use `MSBuildProjectName`.
+- Declare each public, non-`partial` top-level `class`, `record`, `struct`,
+  `interface`, and `enum` in a same-named source file. Private nested types
+  and internal helper models used by one public host may remain co-located
+  when that is clearer; explain other exceptions in the review.
 - Treat a namespace mismatch as a build failure by enabling
   `EnforceCodeStyleInBuild` and configuring `IDE0130` as `error`. Do not claim
   a warning-only diagnostic is an enforced gate.

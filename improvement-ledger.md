@@ -318,18 +318,18 @@ entries; supersede them with a new entry when materially new evidence appears.
 
 ### DS-2026-018 — Default to one top-level .NET type per source file
 
-- **Status:** Deferred
+- **Status:** Implemented
 - **Proposed on:** 2026-09-16
 - **Scope:** .NET
 - **Proposal:** New or materially touched C# source should declare one non-`partial` top-level `class`, `interface`, `record`, `struct`, or `enum` per file, and the file name should match the type name. Exempt `partial` type slices, WPF XAML code-behind, compilation-unit files (`GlobalUsings.cs`, `AssemblyInfo.cs`), generated/vendor code, and private nested types. Projects with pre-existing aggregate files may retain a reviewed baseline while a verifier prevents new violations.
-- **Evidence:** Pulse.Instruments Issue #157 identified 61 violating files and 110 extractable top-level types. The completed low-risk migration normalized Contracts, Drivers, Share.Host, Share.Manager, Share.Scenarios, and tests without changing namespaces or public APIs. It left 77 historic Share DTO/contract declarations as an explicit baseline to avoid an excessively broad behavioral-neutral diff, with `tools/Verify-SourceStructure.ps1` and Pester coverage enforcing that no new violations are introduced.
+- **Evidence:** Pulse.Instruments Issue #157 identified 61 violating files and 110 extractable top-level types. The completed low-risk migration normalized Contracts, Drivers, Share.Host, Share.Manager, Share.Scenarios, and tests without changing namespaces or public APIs. It left 77 historic Share DTO/contract declarations as an explicit baseline to avoid an excessively broad behavioral-neutral diff, with `tools/Verify-SourceStructure.ps1` and Pester coverage enforcing that no new violations are introduced. Pulse.Algorithms independently adopted the layout after a readability review of its public calculation contracts.
 - **Expected benefit:** Type discovery, code review, rename refactors, ownership, and merge conflict resolution become more predictable while migration remains incremental rather than forcing large mechanical rewrites.
 - **Costs and risks:** More files increase navigation overhead; an over-broad rule can fragment intentionally cohesive models. Baselines must remain visible and be reduced only when a related change makes the extraction worthwhile.
 - **Affected standards:** [dotnet/coding-style.md](dotnet/coding-style.md) (if accepted); project-local verifier and baseline policy.
-- **Decision:** Deferred pending shared-standard review.
-- **Decision rationale:** The evidence is concrete and the incremental verifier-plus-baseline approach is reusable, but it comes from one maintained solution. A global default needs independent adoption evidence; otherwise this could encode a project-local navigation preference as a .NET-wide rule. The entry was renumbered from DS-2026-017 to avoid duplicating the existing branch-cleanup decision identifier.
-- **Implementation link:** Pulse.Instruments [Issue #157](https://github.com/pulse-atlas/pulse.instruments/issues/157), `tools/Verify-SourceStructure.ps1`, `tools/source-structure-baseline.json` (evidence only; no shared-standard implementation).
-- **Review again:** after adoption evidence from one additional maintained .NET solution, or 2026-12-16.
+- **Decision:** Accepted and implemented.
+- **Decision rationale:** Two maintained .NET solutions now provide adoption evidence. Restricting the default to public types preserves discoverability and reviewability without splitting private implementation details that read better together. The entry was renumbered from DS-2026-017 to avoid duplicating the existing branch-cleanup decision identifier.
+- **Implementation link:** [public type file-layout rule](dotnet/coding-style.md), Pulse.Instruments [Issue #157](https://github.com/pulse-atlas/pulse.instruments/issues/157), and Pulse.Algorithms adoption work.
+- **Review again:** not needed.
 
 ### DS-2026-019 — Standardize multiline XML documentation formatting
 
