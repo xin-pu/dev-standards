@@ -22,6 +22,9 @@
   automation, and the knowledge-base rule rather than duplicating their text.
 - Review standards references after a major dependency, architecture, platform,
   or release change.
+- Copy and run `scripts/Test-ProjectDocuments.ps1` from the adoption templates
+  when the project uses the standard layout. It is a lightweight local check;
+  keep human review for whether a decision or exception is well justified.
 
 ## Local coding-tool artifacts
 

@@ -37,4 +37,12 @@ if ($missingKeys.Count -gt 0) {
     throw "NuGet source mapping keys are not configured sources: $($missingKeys -join ', ')"
 }
 
+[xml]$build = Get-Content -LiteralPath $buildProps -Raw
+$compilerVisibleProperties = @($build.Project.ItemGroup.CompilerVisibleProperty | ForEach-Object { $_.Include })
+foreach ($property in @('RootNamespace', 'ProjectDir')) {
+    if ($property -notin $compilerVisibleProperties) {
+        throw "Directory.Build.props must expose $property through CompilerVisibleProperty."
+    }
+}
+
 Write-Host "Validated .NET templates and NuGet source mappings."

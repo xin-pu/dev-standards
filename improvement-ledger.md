@@ -266,7 +266,7 @@ entries; supersede them with a new entry when materially new evidence appears.
 
 ### DS-2026-012 — Align IDE namespace-provider settings with the folder-aligned namespace rule
 
-- **Status:** Proposed
+- **Status:** Implemented
 - **Proposed on:** 2026-09-13
 - **Scope:** .NET
 - **Proposal:** When a repository adopts namespace-equals-folder (IDE0130 or equivalent), also clear the IDE layer's per-folder opt-outs: delete `NamespaceFoldersToSkip` entries from `[Project].csproj.DotSettings` (ReSharper's "Namespace Provider = False") and any `#pragma warning disable IDE0130`, because they keep the old expected namespace alive in the editor while the build reports the opposite. State in the repository rule that no folder may be exempted from namespace contribution without a documented exception.
@@ -274,14 +274,16 @@ entries; supersede them with a new entry when materially new evidence appears.
 - **Expected benefit:** One namespace expectation instead of two contradictory ones, no hidden per-project overrides, and a known first thing to grep for (`NamespaceFoldersToSkip`) when editor and build disagree.
 - **Costs and risks:** Removes a legitimate ReSharper escape hatch, so genuine exceptions need an explicit documented form; tool settings file names and storage format may change between analyzer versions.
 - **Affected standards:** [dotnet/toolchain-quality.md](dotnet/toolchain-quality.md) (version analyzer configuration, suppression decisions, and editor settings with the repository).
-- **Decision:** Pending final review.
-- **Decision rationale:** Pending final review.
-- **Implementation link:** Not applicable until accepted.
+- **Decision:** Accepted and implemented.
+- **Decision rationale:** Conflicting namespace expectations create needless
+  churn for a solo maintainer and coding tools alike. The rule preserves a
+  documented exception path rather than banning legitimate edge cases.
+- **Implementation link:** [namespace-provider alignment](dotnet/toolchain-quality.md#namespace-provider-alignment).
 - **Review again:** not needed.
 
 ### DS-2026-013 — Prove a build-time style gate with a deliberate violation
 
-- **Status:** Proposed
+- **Status:** Implemented
 - **Proposed on:** 2026-09-13
 - **Scope:** .NET
 - **Proposal:** Before relying on a build-time style gate (IDE0130, IDE0300, IDE1006, ...), plant one deliberate violation in a scratch file, confirm the build reports that rule, then delete the file. For IDE0130 also expose `RootNamespace` and `ProjectDir` through `CompilerVisibleProperty`, as the rule's documentation requires for command-line builds, so the gate does not depend on implicit SDK behavior. Build the solution after editing solution or project structure, not just the touched project.
@@ -289,14 +291,17 @@ entries; supersede them with a new entry when materially new evidence appears.
 - **Expected benefit:** Distinguishes a working gate from a decorative one; the probe output also names the expected namespace, which doubles as a migration aid; structure edits are proven loadable by the build rather than by inspection.
 - **Costs and risks:** A few minutes per rule, and a leftover probe is itself a violation, so it must be deleted in the same step.
 - **Affected standards:** [dotnet/toolchain-quality.md](dotnet/toolchain-quality.md); complements DS-2026-002.
-- **Decision:** Pending final review.
-- **Decision rationale:** Pending final review.
-- **Implementation link:** Not applicable until accepted.
+- **Decision:** Accepted and implemented as a preferred adoption practice.
+- **Decision rationale:** A deliberate probe is strong evidence when a gate is
+  introduced or changed, but requiring it for every personal change would add
+  ceremony without comparable benefit. The template also exposes the two
+  compiler-visible properties needed by command-line `IDE0130` implementations.
+- **Implementation link:** [gate proof guidance](dotnet/toolchain-quality.md#gate-proof) and [build template](dotnet/templates/Directory.Build.props).
 - **Review again:** not needed.
 
 ### DS-2026-015 — Validate adopted project documentation with a repository script
 
-- **Status:** Proposed
+- **Status:** Implemented
 - **Proposed on:** 2026-09-13
 - **Scope:** cross-technology
 - **Proposal:** Ship a PowerShell validator with the adoption templates that a project copies alongside the layout: required paths (`README.md`, `docs/standards-reference.md`, `docs/design/`, `docs/ledger/`, `docs/adr/`), the pinned knowledge-base revision and review date, ledger entry fields and statuses, deviation entry fields and resolutions, ADR status/sections, resolving local Markdown links, and that local coding-tool artifacts are not tracked.
@@ -304,9 +309,11 @@ entries; supersede them with a new entry when materially new evidence appears.
 - **Expected benefit:** Adoption compliance becomes checkable rather than aspirational: the layout, the pinned revision, and the entry fields can be verified locally, and the two failure modes found in practice (stale links, re-tracked local artifacts) fail a script instead of relying on review.
 - **Costs and risks:** The checker encodes template structure and must be updated when templates change; field checks are label-based, so labels can be present without substance and review is still required; projects with extra documentation directories need explicit exclusions.
 - **Affected standards:** [project-adoption/documentation.md](project-adoption/documentation.md), `project-adoption/templates/`.
-- **Decision:** Pending final review.
-- **Decision rationale:** Pending final review.
-- **Implementation link:** Not applicable until accepted.
+- **Decision:** Accepted and implemented.
+- **Decision rationale:** The check is portable PowerShell, intentionally
+  label-based, and catches the structural documentation failures observed in
+  practice without replacing human review of the actual decisions.
+- **Implementation link:** [project-document validator](project-adoption/templates/scripts/Test-ProjectDocuments.ps1) and [its template test](tests/Test-ProjectDocumentsTemplate.Tests.ps1).
 - **Review again:** when a second solution adopts the project-adoption templates.
 
 ### DS-2026-018 — Default to one top-level .NET type per source file
@@ -338,3 +345,27 @@ entries; supersede them with a new entry when materially new evidence appears.
 - **Decision rationale:** The format is already proven in Pulse, is readable for both short and long documentation, and removes ambiguity for coding tools without changing documentation semantics.
 - **Implementation link:** [XML documentation formatting rule](dotnet/comments.md).
 - **Review again:** not needed.
+
+### DS-2026-020 — Use a lightweight GitHub workflow for solo-maintained repositories
+
+- **Status:** Implemented
+- **Proposed on:** 2026-09-17
+- **Scope:** cross-technology
+- **Proposal:** Preserve verification, traceability, self-review, safe branch
+  cleanup, and no-secret rules, while treating human approvals, CODEOWNERS,
+  branch protection, and hosted CI as preferred safeguards for a personal
+  repository. Permit direct default-branch commits only for clearly trivial,
+  non-behavioral changes.
+- **Evidence:** The initial GitHub workflow correctly described team controls
+  but required two-party safeguards that a personal maintainer cannot satisfy
+  without artificial process.
+- **Expected benefit:** Projects remain auditable and safe without turning
+  small personal changes into unnecessary GitHub administration.
+- **Costs and risks:** Self-review is weaker than independent review; CI can
+  catch environment-specific failures that local verification misses.
+- **Affected standards:** [solo-maintainer profile](github-workflow/solo-maintainer.md), [Issue lifecycle](github-workflow/issue-lifecycle.md), and [PR policy](github-workflow/pull-request-policy.md).
+- **Decision:** Accepted and implemented.
+- **Decision rationale:** The split keeps hard engineering outcomes while
+  scaling collaboration controls to the actual number of collaborators.
+- **Implementation link:** [solo-maintainer profile](github-workflow/solo-maintainer.md).
+- **Review again:** when a repository gains a regular second contributor.

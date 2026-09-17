@@ -9,6 +9,10 @@ Read [issue-lifecycle.md](issue-lifecycle.md) for Issue intake, triage, and
 branch creation. Read [pull-request-policy.md](pull-request-policy.md) before
 opening, reviewing, merging, or closing a pull request.
 
+For a personally maintained repository, read and use the default
+[solo-maintainer.md](solo-maintainer.md) profile. It relaxes collaboration-only
+controls while retaining verification, traceability, and self-review.
+
 Use [templates](templates/) when bootstrapping a GitHub repository. Preserve
 the repository's existing templates when they are more specific; merge only the
 shared fields that do not conflict.

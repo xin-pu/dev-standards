@@ -19,19 +19,24 @@
 - Links to project design/ADR/deviation records and any shared standards ledger
   item when applicable
 
-## Merge gate
+## Solo-maintainer merge gate
 
-Merge only after required status checks pass, required reviewers approve, and
-all review conversations are resolved. Configure GitHub branch protection to
-enforce pull requests, approvals, and required status checks; do not rely on a
-convention that allows direct pushes to the default branch.
+Run the local verification that the change can affect, record its outcome, and
+self-review the final diff before merging. Resolve any review conversation you
+opened for yourself. A second-person approval is not required for a personal
+repository.
+
+Configure GitHub Actions, branch protection, required status checks,
+CODEOWNERS, and reviewer approval when they become useful and reproducible for
+the repository. These are Preferred safeguards in the solo-maintainer profile,
+not a reason to block otherwise verified work.
 
 When the PR targets the default branch, GitHub's enabled automatic issue-close
 behavior closes an Issue referenced by `Closes`, `Fixes`, or `Resolves` after
 merge. Confirm the Issue closed and the merged commit/PR is linked before
 marking the work complete.
 
-## Branch cleanup
+## Branch cleanup after a PR
 
 - **Required:** After a PR is merged, delete its feature branch from both the
   remote and local repository, then prune stale remote-tracking references.

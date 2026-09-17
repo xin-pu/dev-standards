@@ -19,3 +19,8 @@ path. Do not put credentials or production connection strings here.
 This repository adopts the shared development-standards knowledge base. The
 exact revision and approved deviations are recorded in
 `docs/standards-reference.md`.
+
+Run `powershell -NoProfile -ExecutionPolicy Bypass -File
+scripts/Test-ProjectDocuments.ps1` before merging a material documentation
+change. The script checks the adopted revision, local documentation links, ADR
+and deviation structure, and that local coding-tool artifacts are untracked.

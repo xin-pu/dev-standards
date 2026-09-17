@@ -1,18 +1,23 @@
 # GitHub Issue Lifecycle
 
-## Required
+## Material-work baseline
 
-- Create or identify a GitHub Issue before starting a material code, behavior,
-  dependency, configuration, or documentation change.
+- In a solo-maintainer repository, create or identify a GitHub Issue before
+  starting a material code, behavior, dependency, configuration, or
+  documentation change. A project ledger or ADR may carry the record when it
+  is the more appropriate durable home.
 - The Issue must state the problem or outcome, acceptance criteria, scope,
   risk, and verification expectations.
 - Classify the Issue as one of `bug`, `feature`, `maintenance`, `security`, or
   `standards-improvement`; apply an appropriate GitHub label.
-- Create a branch from the current default branch using
+- Prefer a branch from the current default branch using
   `<type>/<issue-number>-<short-kebab-title>`, for example
   `fix/123-null-device-state`.
 - Keep one Issue focused on one independently reviewable outcome. Split or use
   sub-issues when the acceptance criteria cannot be reviewed together.
+
+Read [solo-maintainer.md](solo-maintainer.md) for the allowed direct-commit
+exception and the default personal-development path.
 
 ## Decision routing
 
