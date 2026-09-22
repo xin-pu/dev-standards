@@ -29,6 +29,14 @@
 - Treat a namespace mismatch as a build failure by enabling
   `EnforceCodeStyleInBuild` and configuring `IDE0130` as `error`. Do not claim
   a warning-only diagnostic is an enforced gate.
+- Keep non-generated C# files free of unused `using` directives and order the
+  remaining directives with `System` namespaces first, declared outside the
+  namespace. Gate unused directives with
+  `dotnet_diagnostic.IDE0005.severity = error` and verify ordering and
+  placement with `dotnet format --verify-no-changes`. Enable
+  `GenerateDocumentationFile`, keeping `CS1591` suppressed until missing
+  documentation is deliberately triaged, when the SDK requires it for
+  `IDE0005` to run.
 
 ```csharp
 if (hasValidReferencePlane &&

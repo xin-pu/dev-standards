@@ -9,3 +9,8 @@ dotnet_style_qualification_for_field = false:suggestion
 
 # Namespace must equal RootNamespace plus the physical project-relative path.
 dotnet_diagnostic.IDE0130.severity = error
+
+# Remove unused using directives (IDE0005) and keep them ordered with System first.
+dotnet_diagnostic.IDE0005.severity = error
+dotnet_sort_system_directives_first = true
+csharp_using_directive_placement = outside_namespace:suggestion

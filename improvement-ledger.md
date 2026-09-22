@@ -421,3 +421,18 @@ entries; supersede them with a new entry when materially new evidence appears.
 - **Implementation link:** [stable identifier rule](dotnet/coding-style.md)
   and [identifier assertion rule](dotnet/testing.md).
 - **Review again:** not needed.
+
+### DS-2026-023 — Gate unused and unordered using directives
+
+- **Status:** Implemented
+- **Proposed on:** 2026-09-22
+- **Scope:** .NET
+- **Proposal:** Require that non-generated C# files carry no unused `using` directives and keep the remaining directives ordered with `System` namespaces first and declared outside the namespace. Gate unused directives as a build failure with `dotnet_diagnostic.IDE0005.severity = error`, verify ordering and placement with `dotnet format --verify-no-changes`, and enable `GenerateDocumentationFile` (keeping `CS1591` suppressed) where the SDK requires it for `IDE0005` to run.
+- **Evidence:** Pulse.Foundation enabled `IDE0005` and `dotnet_sort_system_directives_first`, then applied `dotnet format` across the solution (45 files, behavior-neutral). `GenerateDocumentationFile` was required to make the analyzer run without adding warnings, and the change passed build, 58 tests, formatting verification, and document validation.
+- **Expected benefit:** Unused imports stop accumulating, using order and placement become machine-checked, and the rule is a real gate rather than a warning-only suggestion.
+- **Costs and risks:** `IDE0005` as an error fails the build for an unused directive until `dotnet format` removes it; `GenerateDocumentationFile` emits XML documentation artifacts and requires `CS1591` to stay suppressed until documentation debt is triaged.
+- **Affected standards:** [dotnet/coding-style.md](dotnet/coding-style.md), [dotnet/templates/.editorconfig](dotnet/templates/.editorconfig), and [dotnet/templates/Directory.Build.props](dotnet/templates/Directory.Build.props).
+- **Decision:** Accepted and implemented.
+- **Decision rationale:** The rule is verifiable, low-cost to fix with a formatter, and removes a common source of diff noise. Setting `IDE0005` as an error satisfies the knowledge base's requirement that a gate must fail the build rather than only warn.
+- **Implementation link:** [using-directive rule](dotnet/coding-style.md), [analyzer template](dotnet/templates/.editorconfig), and [build template](dotnet/templates/Directory.Build.props).
+- **Review again:** not needed.

@@ -3,6 +3,10 @@
     <Nullable>enable</Nullable>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <!-- Required for the IDE0005 (unnecessary using) analyzer to run. -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!-- Missing XML doc comments are not required for internal members. -->
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <CompilerVisibleProperty Include="RootNamespace" />
