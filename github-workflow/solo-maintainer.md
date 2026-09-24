@@ -25,8 +25,8 @@ material design/configuration change:
 2. Work on a named branch and open a pull request, including `Closes #<number>`
    when the Issue should close on merge.
 3. Complete the PR checklist yourself and record local verification evidence.
-4. Merge only after self-review; confirm the linked Issue closed and remove the
-   merged branch safely.
+4. Merge with a merge commit only after self-review; confirm the linked Issue
+   closed and remove the merged branch safely.
 
 ## Deliberate shortcuts
 

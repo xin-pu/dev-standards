@@ -436,3 +436,18 @@ entries; supersede them with a new entry when materially new evidence appears.
 - **Decision rationale:** The rule is verifiable, low-cost to fix with a formatter, and removes a common source of diff noise. Setting `IDE0005` as an error satisfies the knowledge base's requirement that a gate must fail the build rather than only warn.
 - **Implementation link:** [using-directive rule](dotnet/coding-style.md), [analyzer template](dotnet/templates/.editorconfig), and [build template](dotnet/templates/Directory.Build.props).
 - **Review again:** not needed.
+
+### DS-2026-024 — Merge pull requests with a merge commit
+
+- **Status:** Implemented
+- **Proposed on:** 2026-09-24
+- **Scope:** cross-technology
+- **Proposal:** Require merging a pull request with a merge commit ("Create a merge commit") rather than a squash or rebase merge, so the default-branch history records each pull request as a merge commit and preserves the branch's commits. Reconcile the branch with the default branch first, and do not rewrite published history to make the default branch linear.
+- **Evidence:** This knowledge base merges its own pull requests with merge commits (`Merge pull request #N from ...`). A new project (Pulse.Foundation) merged its early pull requests with rebase merges and produced a linear history that hid the pull-request boundary, and the maintainer directed that merge commits become the shared standard.
+- **Expected benefit:** Pull-request boundaries, branch provenance, and each change's commit set stay visible and auditable, and a merged pull request is distinguishable from direct commits on the default branch.
+- **Costs and risks:** The default-branch history gains merge commits and is no longer linear; branches must be reconciled before merge. Verification requirements are unchanged.
+- **Affected standards:** [github-workflow/pull-request-policy.md](github-workflow/pull-request-policy.md) and [github-workflow/solo-maintainer.md](github-workflow/solo-maintainer.md).
+- **Decision:** Accepted and implemented.
+- **Decision rationale:** The maintainer selected merge commits as the repository default; the rule is technology-agnostic, directly verifiable in Git, and keeps pull-request provenance.
+- **Implementation link:** [merge strategy](github-workflow/pull-request-policy.md#merge-strategy).
+- **Review again:** not needed.

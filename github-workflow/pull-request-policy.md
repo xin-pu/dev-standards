@@ -36,6 +36,11 @@ behavior closes an Issue referenced by `Closes`, `Fixes`, or `Resolves` after
 merge. Confirm the Issue closed and the merged commit/PR is linked before
 marking the work complete.
 
+## Merge strategy
+
+- **Required:** Merge a pull request with a merge commit ("Create a merge commit"), not a squash or rebase merge, so the default-branch history records each pull request as a merge commit and preserves the branch's commits.
+- **Required:** Reconcile the branch with the default branch before merging, and do not rewrite published history to make the default branch linear. Delete the merged branch afterward per the branch-cleanup policy.
+
 ## Branch cleanup after a PR
 
 - **Required:** After a PR is merged, delete its feature branch from both the
