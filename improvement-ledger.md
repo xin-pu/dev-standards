@@ -451,3 +451,18 @@ entries; supersede them with a new entry when materially new evidence appears.
 - **Decision rationale:** The maintainer selected merge commits as the repository default; the rule is technology-agnostic, directly verifiable in Git, and keeps pull-request provenance.
 - **Implementation link:** [merge strategy](github-workflow/pull-request-policy.md#merge-strategy).
 - **Review again:** not needed.
+
+### DS-2026-025 — Scope the XML block-layout rule to narrative elements and permit compact reference children
+
+- **Status:** Implemented
+- **Proposed on:** 2026-09-25
+- **Scope:** .NET
+- **Proposal:** Clarify the XML documentation formatting rule so the dedicated-line block form is required for narrative elements (`<summary>`, `<remarks>`) while `<param>`, `<returns>`, and `<exception>` entries that fit one readable line are required to stay on that single line with content directly after the opening tag; when such an entry wraps, every continuation line keeps the four-space indent and the tags may sit compactly on the text lines or on dedicated lines, both forms conforming, with existing entries keeping the form they were authored in.
+- **Evidence:** DS-2026-019's original proposal scoped the block form to "one-line and wrapped summaries," but the implemented second bullet over-generalized "the same layout" to every non-empty element, implying single-line `<param>` tags were violations. During the 2026-09-25 standards-sync audit of OpenTest.Algorithms, a literal block-form conversion of 225 short `<param>`/`<returns>` tags across 63 files was implemented and then reverted at the maintainer's direction: single-line parameter documentation is the intended style in both Pulse-authored code and OpenTest records, and the block-per-param form inflates record XML docs roughly threefold without adding meaning. The same repository's 38 already-wrapped parameter entries are split between closing tags on the final text line and on dedicated lines, so the clarification keeps both placements conforming for wrapped text instead of forcing a second format-only churn.
+- **Expected benefit:** The rule text matches the authoring practice it came from, coding tools stop converting parameter documentation to block form, and the wrapping/continuation-indent requirement stays enforceable for long entries and narrative elements.
+- **Costs and risks:** Projects that already converted parameter documentation to block form per the previous literal reading keep working (both forms remain readable; only new work follows the clarified rule); no build-time gate distinguishes the two forms, so this relies on review.
+- **Affected standards:** [dotnet/comments.md](dotnet/comments.md).
+- **Decision:** Accepted and implemented.
+- **Decision rationale:** The maintainer ruled that compact parameter documentation is correct; the clarification records that ruling in the single source of truth instead of leaving the over-generalized sentence to be contradicted by project deviation ledgers.
+- **Implementation link:** [XML documentation formatting rule](dotnet/comments.md).
+- **Review again:** not needed.
