@@ -247,7 +247,8 @@ entries; supersede them with a new entry when materially new evidence appears.
 - **Decision:** Deferred pending a WPF-specific standards scope and evidence from more than one maintained project.
 - **Decision rationale:** A fixed six-folder layout is a valid local preference but is not a broadly superior architecture to feature-first WPF organization. It should not enter the general .NET standard before a WPF specialization exists.
 - **Implementation link:** Not applicable.
-- **Review again:** when a `dotnet/wpf` specialization is proposed.
+- **Superseded by:** DS-2026-027 (the WPF specialization this item asked for).
+- **Review again:** superseded by DS-2026-027.
 
 ### DS-2026-010 — Do not nest projects in virtual solution folders when IDE0130 is enabled
 
@@ -481,3 +482,18 @@ entries; supersede them with a new entry when materially new evidence appears.
 - **Decision rationale:** The observable contracts (exit codes, output channels, invariants) are verifiable and cross-project, while the package choices are Preferred defaults subject to the existing dependency and license review; this matches `packages.md` rather than introducing a blanket allowlist.
 - **Implementation link:** [CLI policy](dotnet/cli.md).
 - **Review again:** when a second project adopts the CLI standard or Spectre.Console reaches 1.0.
+
+### DS-2026-027 — Add a WPF specialization with layout, layering, and chart rules
+
+- **Status:** Implemented
+- **Proposed on:** 2026-09-26
+- **Scope:** .NET
+- **Proposal:** Add `dotnet/wpf.md` with Required layering rules (view models perform no file/directory/network I/O, the UI owns no flow orchestration, dialogs and dispatchers are ports, the composition root is thin, view models are testable without a dispatcher, charts are read-only) and the Preferred MVVM six-folder layout and LiveCharts2 charting default that DS-2026-009 deferred. Supersedes DS-2026-009.
+- **Evidence:** Pulse's WPF layer refactor implemented these boundaries with architecture guard tests (`ViewModels_do_not_perform_file_io`, dialog/dispatch ports, thin composition root). OpenTest.Algorithms then built a WPF result-explanation workbench whose first cut put file I/O and `OpenFileDialog` directly in the view model. The maintainer directed a charting constraint, preferring LiveCharts2 (`LiveChartsCore.SkiaSharpView.WPF`, 2.0.x, MIT), checked 2026-09-26.
+- **Expected benefit:** WPF applications across projects share one folder layout, one set of enforceable layering boundaries, and one charting default, so business logic, I/O, and ad-hoc chart libraries stop leaking into views.
+- **Costs and risks:** The layout is convention, not compiler-enforced; adoption requires moving files and extracting ports. LiveCharts2 brings a transitive SkiaSharp native dependency that must be reviewed. Guard tests are source scans and need maintenance.
+- **Affected standards:** new [dotnet/wpf.md](dotnet/wpf.md); supersedes the Deferred DS-2026-009.
+- **Decision:** Accepted and implemented, superseding DS-2026-009.
+- **Decision rationale:** A second maintained project now supplies the evidence DS-2026-009 lacked, and the layering rules are verifiable with guard tests. Splitting layout and charting (Preferred) from layering (Required) keeps the enforceable boundary separate from conventions.
+- **Implementation link:** [WPF policy](dotnet/wpf.md).
+- **Review again:** when a third WPF project adopts the standard.
