@@ -14,6 +14,7 @@ The first implementation is .NET. Its policies are intentionally separated:
 - `dotnet/security-dependency.md` — secret handling, NuGet audit, licensing, and feeds
 - `dotnet/observability.md` — exception translation, structured logs, and redaction
 - `dotnet/runtime-configuration.md` — Options, cancellation, timeouts, retries, and ownership
+- `dotnet/cli.md` — CLI exit codes, output channels, testability, and console UI packages
 
 For solution-specific documentation and adoption templates, see
 `project-adoption/`. It keeps each project's README, design records, ADRs, and
