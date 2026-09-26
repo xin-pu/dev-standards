@@ -17,6 +17,8 @@ Read only the reference needed for the request:
 - `appsettings`, Options, cancellation, timeout, retry, concurrency, or external calls: [runtime-configuration.md](runtime-configuration.md).
 - CLI or console tool — exit codes, standard output/error, machine-readable
   output, `--help`/`--version`, or terminal UI packages: [cli.md](cli.md).
+- WPF application — MVVM folder layout, view-model layering, dialogs, or
+  charting: [wpf.md](wpf.md).
 
 Before changing a project, identify its target framework, nullable setting,
 package-management method, and applicable test tier. Preserve explicit user
