@@ -466,3 +466,18 @@ entries; supersede them with a new entry when materially new evidence appears.
 - **Decision rationale:** The maintainer ruled that compact parameter documentation is correct; the clarification records that ruling in the single source of truth instead of leaving the over-generalized sentence to be contradicted by project deviation ledgers.
 - **Implementation link:** [XML documentation formatting rule](dotnet/comments.md).
 - **Review again:** not needed.
+
+### DS-2026-026 — Standardize CLI packages and observable output contracts
+
+- **Status:** Implemented
+- **Proposed on:** 2026-09-26
+- **Scope:** .NET
+- **Proposal:** Add a `dotnet/cli.md` standard that requires CLI tools to define a stable exit-code contract, keep machine output versioned and separate from human output, split data (stdout) and diagnostics (stderr), make `--help`/`--version` side-effect free, default to non-interactive operation, stay testable without the static `Console`, support cancellation, and use invariant-culture machine output; and that prefers `System.CommandLine` for parsing, subcommands, and help and `Spectre.Console` for human terminal UI, keeping the rich renderer off the machine channel.
+- **Evidence:** OpenTest.Algorithms added a scriptable CLI with a versioned JSON request/result contract, injected streams, and documented exit codes, and needs a reusable rule so its own tool and other projects' CLIs converge on one contract and one package choice instead of each hand-rolling parsing and output.
+- **Expected benefit:** CLIs across projects expose predictable exit codes and machine output, remain testable and composable in pipelines, and select maintained, license-clear packages rather than re-deriving them.
+- **Costs and risks:** `System.CommandLine` and `Spectre.Console` are opinionated, and `Spectre.Console` is still pre-1.0 and must be pinned. The package choices are Preferred, so a project may keep a hand-rolled parser with a recorded reason; only the observable contracts are Required.
+- **Affected standards:** new [dotnet/cli.md](dotnet/cli.md); references [dotnet/packages.md](dotnet/packages.md), [dotnet/security-dependency.md](dotnet/security-dependency.md), [dotnet/observability.md](dotnet/observability.md), and [dotnet/toolchain-quality.md](dotnet/toolchain-quality.md).
+- **Decision:** Accepted and implemented.
+- **Decision rationale:** The observable contracts (exit codes, output channels, invariants) are verifiable and cross-project, while the package choices are Preferred defaults subject to the existing dependency and license review; this matches `packages.md` rather than introducing a blanket allowlist.
+- **Implementation link:** [CLI policy](dotnet/cli.md).
+- **Review again:** when a second project adopts the CLI standard or Spectre.Console reaches 1.0.
