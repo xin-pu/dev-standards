@@ -10,6 +10,10 @@
   risk, and verification expectations.
 - Classify the Issue as one of `bug`, `feature`, `maintenance`, `security`, or
   `standards-improvement`; apply an appropriate GitHub label.
+- Assign the created Issue to the repository's maintainer identity, `xin-pu` in
+  this environment (`gh issue create --assignee xin-pu`). In a solo-maintainer
+  repository, confirm the identity with `gh api user --jq .login` first; see
+  [solo-maintainer.md](solo-maintainer.md).
 - Prefer a branch from the current default branch using
   `<type>/<issue-number>-<short-kebab-title>`, for example
   `fix/123-null-device-state`.

@@ -497,3 +497,32 @@ entries; supersede them with a new entry when materially new evidence appears.
 - **Decision rationale:** A second maintained project now supplies the evidence DS-2026-009 lacked, and the layering rules are verifiable with guard tests. Splitting layout and charting (Preferred) from layering (Required) keeps the enforceable boundary separate from conventions.
 - **Implementation link:** [WPF policy](dotnet/wpf.md).
 - **Review again:** when a third WPF project adopts the standard.
+
+### DS-2026-028 — Assign new GitHub Issues to the verified gh maintainer identity
+
+- **Status:** Implemented
+- **Proposed on:** 2026-09-30
+- **Scope:** cross-technology
+- **Proposal:** Require verifying the authenticated `gh` identity with
+  `gh api user --jq .login` before the first remote GitHub operation of a
+  session, and require every Issue created in the solo-maintainer workflow to
+  be assigned to that verified identity, `xin-pu`.
+- **Evidence:** On 2026-09-30 `gh api user --jq .login` returned `xin-pu` and
+  the maintainer directed that all subsequent GitHub Issues be assigned to it.
+  Issues #1, #3, #5, and #7 in this repository were previously created without
+  an assignee.
+- **Expected benefit:** Every Issue has an explicit owner, delivery records are
+  searchable per assignee, and work is not pushed or assigned from an
+  unverified or unexpected account.
+- **Costs and risks:** The recorded login is maintainer- and machine-specific
+  and ages if the account changes, so the rule carries a re-verification step;
+  assignees must have repository access, so fork-based or team workflows need
+  the rule revisited.
+- **Affected standards:** [github-workflow/solo-maintainer.md](github-workflow/solo-maintainer.md) and [github-workflow/issue-lifecycle.md](github-workflow/issue-lifecycle.md).
+- **Decision:** Accepted and implemented under explicit maintainer direction.
+- **Decision rationale:** The identity is directly verifiable with `gh`, the
+  assignment default closes the observed unassigned-Issue gap, and the
+  re-verification clause keeps the personal detail safe to version.
+- **Implementation link:** [maintainer identity](github-workflow/solo-maintainer.md#maintainer-identity) and [Issue baseline](github-workflow/issue-lifecycle.md#material-work-baseline).
+- **Review again:** when a `gh` account other than `xin-pu` authenticates on
+  this machine or the repository gains a second maintainer.
