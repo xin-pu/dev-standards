@@ -4,6 +4,15 @@ Use this profile by default for a repository maintained by one person. It
 preserves evidence and safe delivery without requiring a second human,
 CODEOWNERS, or hosted CI before the repository is ready for them.
 
+## Maintainer identity
+
+The authenticated GitHub identity for `gh` operations is `xin-pu`, confirmed on
+2026-09-30 with `gh api user --jq .login`. Verify that command before the first
+remote GitHub operation of a session; when it reports a different account,
+re-confirm with the user before creating, assigning, or merging anything.
+GitHub Issues created under this profile are assigned to that identity
+([issue lifecycle](issue-lifecycle.md)).
+
 ## Non-negotiable baseline
 
 - Never commit secrets, credentials, or production-only configuration.
@@ -22,6 +31,8 @@ For a feature, bug fix, dependency update, migration, security change, or
 material design/configuration change:
 
 1. Create or identify an Issue and state the intended outcome and verification.
+   Assign the new Issue to the maintainer identity above
+   (`gh issue create --assignee xin-pu`).
 2. Work on a named branch and open a pull request, including `Closes #<number>`
    when the Issue should close on merge.
 3. Complete the PR checklist yourself and record local verification evidence.
